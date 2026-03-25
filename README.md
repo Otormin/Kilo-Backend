@@ -61,14 +61,12 @@ The project follows a clean, layered architecture for maintainability and scalab
 
 The API is fully documented with Swagger. Once running, you can explore the endpoints at `/swagger`.
 
-### 📸 Preview
+### 📸 Screenshots
 
-<details>
 <img src="Screenshots/kilo1.png" alt="Swagger Screenshot 1">
 <img src="Screenshots/kilo2.png" alt="Swagger Screenshot 2">
 <img src="Screenshots/kilo3.png" alt="Swagger Screenshot 3">
 <img src="Screenshots/kilo4.png" alt="Swagger Screenshot 4">
-</details>
 
 -----
 
