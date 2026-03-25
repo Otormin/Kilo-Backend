@@ -64,8 +64,6 @@ The API is fully documented with Swagger. Once running, you can explore the endp
 ### 📸 Preview
 
 <details>
-<summary>View Swagger Screenshots</summary>
-<br>
 <img src="Screenshots/kilo1.png" alt="Swagger Screenshot 1">
 <img src="Screenshots/kilo2.png" alt="Swagger Screenshot 2">
 <img src="Screenshots/kilo3.png" alt="Swagger Screenshot 3">
@@ -81,15 +79,6 @@ This project uses **GitHub Actions** for continuous integration and deployment. 
 1.  **Build:** Restores dependencies and compiles the .NET project.
 2.  **Publish:** Packages the application for production.
 3.  **Deploy:** Automatically pushes the new build to **Azure App Service**.
-
------
-
-## 📌 Roadmap
-
-  - [ ] **Identity:** Integrate JWT Authentication & Role-based access control.
-  - [ ] **Payments:** Stripe/PayPal integration for actual financial settlement.
-  - [ ] **Analytics:** Dashboard for users to visualize energy savings and earnings.
-  - [ ] **Webhooks:** Real-time notifications for transaction updates.
 
 -----
 
