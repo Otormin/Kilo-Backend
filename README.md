@@ -1,4 +1,3 @@
-````markdown
 # ⚡ Kilo Backend API
 
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-512bd4?logo=dotnet)](https://dotnet.microsoft.com/)
@@ -36,7 +35,6 @@
 
 The project follows a clean, layered architecture for maintainability and scalability:
 
-```text
 ├── Data/           # DbContext and Migrations
 ├── Controllers/    # API Endpoints
 ├── Services/       # Business Logic Layer
@@ -45,7 +43,6 @@ The project follows a clean, layered architecture for maintainability and scalab
 ├── DTOs/           # Data Transfer Objects
 ├── Mappers/        # AutoMapper / Manual Mapping
 └── Helpers/        # Utilities & Middleware (Rate Limiting, IP Forwarding)
-````
 
 -----
 
