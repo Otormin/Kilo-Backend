@@ -8,7 +8,7 @@ namespace Kilo.Interfaces
         Task<ICollection<GetListingDto>> GetAllListingsAsync(QueryObjectForListing queryObject);
         Task<ICollection<GetListingDto>> GetListingBySellerIdAsync(int sellerId);
         Task<ICollection<GetListingDto>> GetActiveListingsAsync(string? location);
-        Task<ICollection<GetListingDto>> GetListingByMeterIdAsync(int meterId);
+        Task<GetListingDto> GetListingByMeterIdAsync(int meterId);
         Task<ICollection<GetLocationDto>> GetAvailableLocationsAsync();
         Task<GetListingDto> GetListingByIdAsync(int id);
         Task<Listing> CreateListingAsync(CreateListingDto listingDto, int sellerId, int meterId);

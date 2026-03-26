@@ -24,12 +24,13 @@ namespace Kilo.Services
             try
             {
                 var listing = await _listingRepository.GetListingByMeterIdAsync(meterId);
+
                 if (listing != null)
                 {
                     return new ApiResponse
                     {
                         StatusCode = 404,
-                        Message = "Meter already exists",
+                        Message = "An energy listing with this meter already exists",
                         Data = new { }
                     };
                 }

@@ -173,26 +173,25 @@ namespace Kilo.Repository
             return listing;
         }
 
-        public async Task<ICollection<GetListingDto>> GetListingByMeterIdAsync(int meterId)
+        public async Task<GetListingDto> GetListingByMeterIdAsync(int meterId)
         {
-            var listing = await _context.Listings.Where(x => x.MeterId == meterId && x.IsDeleted == false).Select(s => new GetListingDto
+            var listingDto = await _context.Listings.Where(x => x.MeterId == meterId && !x.IsDeleted)
+            .Select(l => new GetListingDto
             {
-                Id = s.Id,
-                SellerId = s.SellerId,
-                MeterId = s.MeterId,
-                Location = s.Location,
-                PricePerKwh = s.PricePerKwh,
-
-                TotalGeneratedKwh = s.Meter.TotalGeneratedKwh,
-                ConsumedKwh = s.Meter.ConsumedKwh,
-
-                IsActive = s.IsActive,
-                IsDeleted = s.IsDeleted,
-                LastUpdated = s.LastUpdated
+                Id = l.Id,
+                SellerId = l.SellerId,
+                MeterId = l.MeterId,
+                Location = l.Location,
+                PricePerKwh = l.PricePerKwh,
+                TotalGeneratedKwh = l.Meter.TotalGeneratedKwh,
+                ConsumedKwh = l.Meter.ConsumedKwh,
+                IsActive = l.IsActive,
+                IsDeleted = l.IsDeleted,
+                LastUpdated = l.LastUpdated
             })
-            .ToListAsync();
+            .FirstOrDefaultAsync();
 
-            return listing;
+            return listingDto;
         }
 
         public async Task<GetListingDto> GetListingByIdAsync(int id)
