@@ -93,7 +93,7 @@ namespace Kilo.Repository
 
         public async Task<ICollection<GetTransactionDto>> GetTransactionByUserIdAsync(int userId)
         {
-            var transaction = await _context.Transactions.Where(x => x.BuyerId == userId || x.SellerId == userId).Select(s => s.ToGetTransactionDtoFromTransaction()).ToListAsync(); 
+            var transaction = await _context.Transactions.Where(x => x.BuyerId == userId || x.SellerId == userId).Select(s => s.ToGetTransactionDtoFromTransaction()).ToListAsync();
 
             return transaction;
         }
@@ -116,7 +116,7 @@ namespace Kilo.Repository
             if (transaction == null) return false;
 
             transaction.Status = confirmPaymentDto.Status;
-            transaction.PaymentReference = confirmPaymentDto.PaymentReference; 
+            transaction.PaymentReference = confirmPaymentDto.PaymentReference;
 
             await _context.SaveChangesAsync();
             return true;
@@ -143,6 +143,18 @@ namespace Kilo.Repository
             var transactionDto = TransactionMapper.ToGetTransactionDtoFromTransaction(transaction);
 
             return transactionDto;
+        }
+
+        public async Task<bool> UpdateTransactionStatus(Guid transactionId, TransactionStatus status)
+        {
+            var transaction = await _context.Transactions.FirstOrDefaultAsync(x => x.Id == transactionId);
+
+            if (transaction == null) return false;
+
+            transaction.Status = status;
+
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

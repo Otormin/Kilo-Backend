@@ -23,6 +23,17 @@ namespace Kilo.Services
         {
             try
             {
+                var listing = await _listingRepository.GetListingByMeterIdAsync(meterId);
+                if (listing != null)
+                {
+                    return new ApiResponse
+                    {
+                        StatusCode = 404,
+                        Message = "Meter already exists",
+                        Data = new { }
+                    };
+                }
+
                 var createdListing = await _listingRepository.CreateListingAsync(listingDto, sellerId, meterId);
                 if (createdListing == null)
                 {
@@ -91,7 +102,7 @@ namespace Kilo.Services
             {
                 var activeListings = await _listingRepository.GetActiveListingsAsync(location);
                 if (!activeListings.Any())
-                    {
+                {
                     return new ApiResponse
                     {
                         StatusCode = 200,

@@ -173,6 +173,28 @@ namespace Kilo.Repository
             return listing;
         }
 
+        public async Task<ICollection<GetListingDto>> GetListingByMeterIdAsync(int meterId)
+        {
+            var listing = await _context.Listings.Where(x => x.MeterId == meterId && x.IsDeleted == false).Select(s => new GetListingDto
+            {
+                Id = s.Id,
+                SellerId = s.SellerId,
+                MeterId = s.MeterId,
+                Location = s.Location,
+                PricePerKwh = s.PricePerKwh,
+
+                TotalGeneratedKwh = s.Meter.TotalGeneratedKwh,
+                ConsumedKwh = s.Meter.ConsumedKwh,
+
+                IsActive = s.IsActive,
+                IsDeleted = s.IsDeleted,
+                LastUpdated = s.LastUpdated
+            })
+            .ToListAsync();
+
+            return listing;
+        }
+
         public async Task<GetListingDto> GetListingByIdAsync(int id)
         {
             var listingDto = await _context.Listings.Where(x => x.Id == id && !x.IsDeleted)
