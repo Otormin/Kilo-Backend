@@ -1,6 +1,7 @@
 ﻿using Kilo.DTOs.TransactionDto;
 using Kilo.Helpers;
 using Kilo.Interfaces;
+using Kilo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 
@@ -291,6 +292,34 @@ namespace Kilo.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Update Delivered kwh in transaction by Transaction Id failed");
+                return StatusCode(500, "An internal server error occurred.");
+            }
+        }
+
+        [HttpPost("UpdateTransactionStatus/{transactionId:guid}")]
+        [EnableRateLimiting("ip-sliding")]
+        public async Task<IActionResult> UpdateTransactionStatus([FromRoute] Guid transactionId, [FromQuery] TransactionStatus status)
+        {
+            try
+            {
+                var updateTransactionStatus = await _transactionService.UpdateTransactionStatus(transactionId, status);
+
+                if (updateTransactionStatus.StatusCode == 200 || updateTransactionStatus.StatusCode == 404)
+                {
+                    return Ok(updateTransactionStatus);
+                }
+                else if (updateTransactionStatus.StatusCode == 400)
+                {
+                    return BadRequest(updateTransactionStatus);
+                }
+                else
+                {
+                    return StatusCode(500, updateTransactionStatus);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Update transaction status by Transaction Id failed");
                 return StatusCode(500, "An internal server error occurred.");
             }
         }

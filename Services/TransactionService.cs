@@ -56,7 +56,7 @@ namespace Kilo.Services
                 }
 
                 var amount = sellerListing.PricePerKwh * buyerRequestedKwh;
-                var platformFee = amount/100;
+                var platformFee = amount / 100;
                 var status = TransactionStatus.PendingPayment;
 
                 var transactionDto = new CreateTransactionDto
@@ -111,7 +111,7 @@ namespace Kilo.Services
                     {
                         StatusCode = 404,
                         Message = "Transaction not found",
-                        Data = new {}
+                        Data = new { }
                     };
                 }
 
@@ -139,7 +139,7 @@ namespace Kilo.Services
 
                 var listing = await _listingRepository.GetListingByIdAsync(listingId);
 
-                if(listing == null)
+                if (listing == null)
                 {
                     return new ApiResponse
                     {
@@ -151,7 +151,7 @@ namespace Kilo.Services
 
                 var availableKwh = listing.TotalGeneratedKwh - listing.ConsumedKwh;
 
-                if(availableKwh < transaction.RequestedKwh)
+                if (availableKwh < transaction.RequestedKwh)
                 {
                     return new ApiResponse
                     {
@@ -211,7 +211,7 @@ namespace Kilo.Services
                     {
                         StatusCode = 500,
                         Message = "An error occurred while logging energy",
-                        Data = new {}
+                        Data = new { }
                     };
                 }
 
@@ -239,7 +239,7 @@ namespace Kilo.Services
             {
                 var transactions = await _transactionRepository.GetAllTransactionsAsync(queryObject);
 
-                if(!transactions.Any())
+                if (!transactions.Any())
                 {
                     return new ApiResponse
                     {
@@ -497,6 +497,40 @@ namespace Kilo.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Update Delivered Kwh in Transaction failed.");
+                return new ApiResponse
+                {
+                    StatusCode = 500,
+                    Message = "An internal server error occurred.",
+                };
+            }
+        }
+
+        public async Task<ApiResponse> UpdateTransactionStatus(Guid transactionId, TransactionStatus status)
+        {
+            try
+            {
+                var transaction = await _transactionRepository.UpdateTransactionStatus(transactionId, status);
+
+                if (transaction == false)
+                {
+                    return new ApiResponse
+                    {
+                        StatusCode = 404,
+                        Message = "Transaction does not exist.",
+                        Data = new { }
+                    };
+                }
+
+                return new ApiResponse
+                {
+                    StatusCode = 200,
+                    Message = "Transaction status successfully updated.",
+                    Data = transaction
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Update Transaction status failed.");
                 return new ApiResponse
                 {
                     StatusCode = 500,
