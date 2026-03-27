@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Deployed to Azure](https://img.shields.io/badge/Deployed%20to-Azure-0089D6?logo=microsoftazure)](https://azure.microsoft.com/)
 
-**Kilo** is a high-performance backend API built with **ASP.NET Core** that facilitates a decentralized energy marketplace. It enables users to buy and sell surplus solar/wind energy (kWh) through automated listing management and real-time transaction tracking.
+**Kilo** is a high-performance backend API built with **ASP.NET Core** that facilitates a decentralized energy marketplace. It enables users to buy and sell surplus solar energy (kWh) through automated listing management and real-time transaction tracking.
 
 ---
 
@@ -83,5 +83,3 @@ This project uses **GitHub Actions** for continuous integration and deployment. 
 ## 👨‍💻 Author
 
 Developed by **[Young Jesse/GitHub Username: Otormin]** as part of the Kilo energy trading platform—an initiative to decentralize and democratize green energy exchange.
-
-```
